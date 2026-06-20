@@ -1,0 +1,784 @@
+/* Tailwind CSS */
+@import 'tailwindcss';
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;500;700;900&family=Special+Elite&display=swap');
+
+/* Custom Scrollbar - Elegant & Thin */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(137, 116, 104, 0.28);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(137, 116, 104, 0.42);
+}
+
+/* Font assignments */
+.font-mono-retro {
+  font-family: 'Courier Prime', monospace;
+}
+.font-serif-sc {
+  font-family: 'Noto Serif SC', serif;
+}
+.font-grunge {
+  font-family: 'Special Elite', cursive;
+}
+
+/* Noise Texture */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+}
+
+/* Scan animation */
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* Tailwind Custom Config - as CSS Variables */
+:root {
+  --color-cozy-bg: #f6f1ea;
+  --color-cozy-panel: rgba(255, 250, 246, 0.82);
+  --color-cozy-panel-strong: rgba(255, 248, 242, 0.92);
+  --color-cozy-panel-soft: rgba(255, 255, 255, 0.58);
+  --color-cozy-border: rgba(161, 132, 117, 0.2);
+  --color-cozy-border-strong: rgba(161, 132, 117, 0.34);
+  --color-cozy-ink: #5f524b;
+  --color-cozy-muted: #8d7d73;
+  --color-cozy-accent: #ddb8b0;
+  --color-cozy-accent-soft: #ebcfb0;
+  --color-cozy-accent-green: #bcc7ba;
+  --shadow-cozy: 0 18px 44px rgba(109, 88, 76, 0.16);
+
+  /* --pixel-dialog-border-blue: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath fill='%237e93a8' d='M4 0h16v1h1v1h1v1h1v1h1v16h-1v1h-1v1h-1v1h-1v1h-16v-1h-1v-1h-1v-1h-1v-1h-1v-16h1v-1h1v-1h1v-1h1v-1Z'/%3E%3Cpath fill='%23a6c0d9' d='M4 1h16v1h1v1h1v1h1v16h-1v1h-1v1h-1v1h-16v-1h-1v-1h-1v-1h-1v-16h1v-1h1v-1h1v-1Z'/%3E%3Cpath fill='%23ffffff' d='M4 2h16v1h1v1h1v16h-1v1h-1v1h-16v-1h-1v-1h-1v-16h1v-1h1v-1Z'/%3E%3Cpath fill='%23f4f5f0' d='M4 3h16v1h1v16h-1v1h-16v-1h-1v-16h1v-1Z'/%3E%3C/svg%3E"); */
+  /* --pixel-dialog-ink: #475569; */
+  /* --pixel-dialog-ink-soft: #64748b; */
+
+  /* ===== 对话框手动调参说�?=====
+   * 手机竖屏：本文件 @media screen and (max-width: 479px)
+   *   只改这一行：padding: 5px 5px 3px 5px !important;
+   * 手机横屏：本文件 @media screen and (max-height: 500px) and (orientation: landscape)
+   *   只改这一行：padding: 8px 8px 6px 8px !important;
+   */
+
+  /* ========== UI 缩放比例 ==========
+   * 修改此值即可调整电脑端楼层预览�?UI（按钮、对话框等）的大�?   * 1 = 原始大小, 0.85 = 缩小�?5%, 0.7 = 缩小�?0%
+   * 仅影�?UI 元素，不影响背景场景和角色立�?   */
+  --ui-scale: 0.8;
+}
+
+.font-editor-sans {
+  font-family: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* ========== 共用 UI 样式体系 (Cozy 风格) ========== */
+
+.cozy-overlay {
+  background: rgba(79, 60, 52, 0.24);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.cozy-surface {
+  background: linear-gradient(160deg, var(--color-cozy-panel-strong), rgba(245, 236, 228, 0.84));
+  border: 1px solid var(--color-cozy-border);
+  box-shadow: var(--shadow-cozy);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+.cozy-surface-soft {
+  background: linear-gradient(160deg, rgba(255, 252, 248, 0.74), rgba(245, 236, 228, 0.56));
+  border: 1px solid rgba(161, 132, 117, 0.16);
+  box-shadow: 0 12px 28px rgba(109, 88, 76, 0.1);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.cozy-surface-dark {
+  background: linear-gradient(160deg, rgba(235, 226, 218, 0.84), rgba(225, 216, 208, 0.66));
+  border: 1px solid var(--color-cozy-border-strong);
+  box-shadow: inset 0 2px 10px rgba(109, 88, 76, 0.05);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+/* ========== 移动端性能优化 ========== */
+@media screen and (max-width: 768px) {
+  /* 1. 降低模糊强度，减少 GPU 负担 */
+  .cozy-overlay {
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  
+  .cozy-surface,
+  .cozy-surface-soft,
+  .cozy-surface-dark {
+    backdrop-filter: blur(6px) saturate(130%);
+    -webkit-backdrop-filter: blur(6px) saturate(130%);
+    box-shadow: 0 8px 16px rgba(109, 88, 76, 0.12);
+  }
+  
+  /* 2. 启用硬件加速和合成层优化 */
+  .cozy-surface,
+  .cozy-surface-soft,
+  .cozy-surface-dark,
+  .game-modal,
+  .cozy-overlay {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+  }
+  
+  /* 3. 加快过渡动画速度 */
+  .transition-all,
+  [class*="transition-"] {
+    transition-duration: 200ms !important;
+  }
+  
+  .duration-700,
+  .duration-500,
+  .duration-1000 {
+    transition-duration: 250ms !important;
+  }
+  
+  .duration-300 {
+    transition-duration: 150ms !important;
+  }
+  
+  /* 4. 移除点击延迟，提升触摸响应 */
+  button,
+  [role="button"],
+  .clickable {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* 5. 按钮点击视觉反馈 */
+  button:active,
+  [role="button"]:active {
+    transform: scale(0.96) translateZ(0);
+    transition-duration: 50ms !important;
+  }
+  
+  /* 6. 优化模态弹窗性能 */
+  .game-modal {
+    contain: layout style paint;
+  }
+  
+  .game-modal > div {
+    contain: layout style;
+  }
+}
+
+.cozy-hairline {
+  background: linear-gradient(90deg, transparent, rgba(161, 132, 117, 0.26), transparent);
+}
+
+.cozy-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(137, 116, 104, 0.24);
+}
+
+.cozy-list-item {
+  background: rgba(255, 252, 248, 0.6);
+  border: 1px solid rgba(161, 132, 117, 0.14);
+  box-shadow: 0 12px 24px rgba(109, 88, 76, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cozy-list-item:hover {
+  background: rgba(255, 250, 246, 0.86);
+  border: 1px solid rgba(161, 132, 117, 0.3);
+  box-shadow: 0 18px 36px rgba(109, 88, 76, 0.12);
+  transform: translateY(-2px);
+}
+
+.cozy-list-item-active {
+  background: var(--color-cozy-panel-strong);
+  border: 1px solid var(--color-cozy-border-strong);
+  box-shadow: 0 18px 36px rgba(109, 88, 76, 0.18);
+}
+
+.cozy-button-danger {
+  background: rgba(188, 74, 60, 0.08);
+  border: 1px solid rgba(188, 74, 60, 0.2);
+  color: #a44840;
+  transition: all 0.3s ease;
+}
+
+.cozy-button-danger:hover {
+  background: rgba(188, 74, 60, 0.85);
+  border: 1px solid rgba(188, 74, 60, 0.9);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(188, 74, 60, 0.3);
+}
+
+.cozy-button-icon {
+  background: rgba(255, 255, 255, 0.48);
+  border: 1px solid rgba(161, 132, 117, 0.18);
+  color: var(--color-cozy-muted);
+  box-shadow: 0 10px 24px rgba(109, 88, 76, 0.12);
+  transition: all 0.3s ease;
+}
+
+.cozy-button-icon:hover {
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(161, 132, 117, 0.28);
+  color: var(--color-cozy-ink);
+  transform: translateY(-2px);
+}
+
+/* =============================================== */
+
+/* UI 缩放：对各个 UI 组件单独应用，保持各自位置不�?*/
+.game-top-controls {
+  transform: scale(var(--ui-scale));
+  transform-origin: top right;
+}
+.game-scene-toast {
+  transform: scale(var(--ui-scale));
+  transform-origin: top left;
+}
+.game-stat-toast {
+  transform: scale(1);
+  transform-origin: top left;
+}
+
+.game-dialogue-area {
+  zoom: var(--ui-scale);
+}
+
+/* 确保手机端横竖屏都不被默认的 --ui-scale 影响 bottom */
+@media screen and (max-width: 479px) {
+  .game-dialogue-area {
+    zoom: 1;
+  }
+}
+
+/* Base styles */
+body {
+  background-color: var(--color-cozy-bg);
+  color: var(--color-cozy-ink);
+  overflow: hidden;
+  user-select: none;
+  font-family: 'Noto Serif SC', serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure full width */
+html,
+body,
+#root {
+  width: 100%;
+}
+
+/* 酒馆楼层横全屏同比例显示适配 */
+#root {
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 全屏状态：容器填满整个屏幕 */
+#root > div:fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  aspect-ratio: auto;
+}
+
+/* 手机端酒馆楼层适配：保持横全屏同比例完整显�?*/
+@media screen and (max-width: 768px) {
+  #root {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+/* 手机端楼层预览：UI 元素适当缩小（不影响背景容器场景�?*/
+/* 使用 max-width: 479px 确保只在真正的手机屏幕上触发，不影响桌面酒馆 iframe */
+@media screen and (max-width: 479px) {
+  /* 场景提示缩小 */
+  .game-scene-toast {
+    top: 0.5rem !important;
+    left: 0.5rem !important;
+  }
+  .game-scene-toast h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.1 !important;
+    margin-top: 0.125rem !important;
+  }
+  .game-scene-toast span {
+    font-size: 6px !important;
+  }
+  .game-scene-toast svg {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  /* Stat toast 缩小 */
+  .game-stat-toast {
+    top: 1.5rem !important;
+    left: 0.5rem !important;
+    max-width: 220px !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* 对话区域缩小 */
+
+  /* 说话者名牌缩�?*/
+  .game-speaker-tag {
+    top: -0.75rem !important;
+  }
+  .game-speaker-tag > div {
+    padding: 0.0625rem 0.5rem !important;
+    min-width: 60px !important;
+  }
+  .game-speaker-tag span {
+    font-size: 12px !important; /* 避免使用 rem，防止被根字号影响 */
+  }
+
+  /* 旧对话框缩小 */
+  .game-dialogue-box {
+    padding: 0.625rem 0.75rem !important;
+    min-height: 60px !important;
+  }
+  .game-dialogue-box .w-3 {
+    width: 0.375rem !important;
+    height: 0.375rem !important;
+  }
+
+  /* 移动端竖屏对话文字 - 暴力锁定字号，防止被任何外部或全局规则覆盖 */
+  .game-dialogue-text,
+  .game-dialogue-text span,
+  .game-dialogue-text b,
+  .game-dialogue-text i,
+  .game-dialogue-text p {
+    font-size: 20px !important;
+    line-height: 1.65 !important;
+  }
+
+  /* 调整移动端渐变遮罩并减小底部留白 */
+  .mobile-landscape-box {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 5px,
+      black 15px,
+      black calc(100% - 6px),
+      rgba(0, 0, 0, 0.5) calc(100% - 2px),
+      transparent 100%
+    ) !important;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 5px,
+      black 15px,
+      black calc(100% - 6px),
+      rgba(0, 0, 0, 0.5) calc(100% - 2px),
+      transparent 100%
+    ) !important;
+  }
+  .game-dialogue-text .w-2 {
+    width: 0.25rem !important;
+    height: 0.5rem !important;
+  }
+
+  /* 推进箭头缩小 */
+  .game-dialogue-box .animate-bounce svg {
+    width: 0.75rem !important;
+    height: 0.75rem !important;
+  }
+  .game-dialogue-box .animate-bounce {
+    bottom: 0.25rem !important;
+    right: 0.25rem !important;
+  }
+}
+
+/* 手机端竖屏全屏适配：优化对话框显示 */
+@media screen and (max-width: 479px) and (min-height: 700px) and (orientation: portrait) {
+  /* 增大场景地点说明 */
+  .game-scene-toast {
+    top: 1rem !important;
+    left: 1rem !important;
+    transform: none !important;
+  }
+  .game-scene-toast h1 {
+    font-size: 2.5rem !important;
+    line-height: 1.2 !important;
+    margin-top: 0.25rem !important;
+  }
+  .game-scene-toast span {
+    font-size: 9px !important;
+  }
+  .game-scene-toast svg {
+    width: 9px !important;
+    height: 9px !important;
+  }
+
+  /* 调整对话区域位置和尺�?- 贴底显示 */
+
+  /* 扩大非像素框对话框尺�?*/
+  .game-dialogue-box:not(.pixel-dialog-shell) {
+    min-height: 200px !important;
+    padding: 1.5rem 1.5rem !important;
+  }
+
+  /* 增大非像素框对话文字尺寸及空间优�?*/
+  .game-dialogue-box:not(.pixel-dialog-shell) .game-dialogue-text,
+  .game-dialogue-box:not(.pixel-dialog-shell) .game-dialogue-text span {
+    font-size: 20px !important;
+    line-height: 1.6 !important;
+    max-height: none !important; /* 移除高度限制，防止挤压 */
+  }
+
+  /* 增大说话者名�?*/
+  .game-speaker-tag {
+    top: -1.25rem !important;
+  }
+  .game-speaker-tag > div {
+    padding: 0.25rem 1rem !important;
+    min-width: 80px !important;
+  }
+  .game-speaker-tag span {
+    font-size: 0.75rem !important;
+  }
+
+  /* 增大推进箭头 */
+  .game-dialogue-box .animate-bounce svg {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+  .game-dialogue-box .animate-bounce {
+    bottom: 1rem !important;
+    right: 1rem !important;
+  }
+}
+
+/* ===== 像素对话框手动调参区 =====
+ * 电脑端文字大小：本文�?@media screen and (min-width: 768px) and (min-height: 551px)
+ *   - 调：.pixel-dialog-shell .game-dialogue-text �?font-size / line-height / letter-spacing
+ * 手机竖屏文字大小：本文件 @media screen and (max-width: 479px)
+ *   - 调：.pixel-dialog-shell .game-dialogue-text �?padding / font-size / line-height
+ * 手机横屏文字大小与内边距：本文件 @media screen and (max-height: 500px) and (orientation: landscape)
+ *   - 调：.game-modal > div �?scale
+ *   - 调：.pixel-dialog-shell .mobile-landscape-text �?padding / font-size / line-height
+ */
+
+@media screen and (min-width: 768px) and (min-height: 551px) {
+  /* PC端全屏字号 - 修改这里的 clamp 值来调整PC端字号 */
+  .game-dialogue-text {
+    font-size: clamp(23px, 1.4vw, 25px) !important;
+    line-height: 1.65 !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .pixel-dialog-shell .game-dialogue-text {
+    font-size: clamp(23px, 1.75vw, 25px) !important;
+    line-height: 1.45 !important;
+    letter-spacing: 0.015em !important;
+  }
+}
+
+/* 优化触摸滚动体验 */
+@media screen and (max-width: 479px) {
+  .game-dialogue-text {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+  }
+
+  .nametag-icon {
+    width: 10px !important;
+    height: 10px !important;
+    border-width: 2px !important;
+  }
+
+  /* 优化移动端对话区域外层渐变遮罩，使过渡更加平滑自�?*/
+  .mobile-landscape-box {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.2) 6px,
+      rgba(0, 0, 0, 0.7) 12px,
+      black 20px,
+      black calc(100% - 6px),
+      rgba(0, 0, 0, 0.5) calc(100% - 2px),
+      transparent 100%
+    ) !important;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.2) 6px,
+      rgba(0, 0, 0, 0.7) 12px,
+      black 20px,
+      black calc(100% - 6px),
+      rgba(0, 0, 0, 0.5) calc(100% - 2px),
+      transparent 100%
+    ) !important;
+  }
+}
+
+/* 手机端全屏横屏适配：缩�?UI 元素和弹窗，使横屏阅读更舒�?*/
+/* max-height: 500px + landscape 精确匹配手机横屏，不影响桌面端和竖屏 */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --ui-scale: 0.6;
+  }
+
+  /* 模态弹窗不要缩得过小，避免横屏手机上看起来字小、边距薄 */
+  .game-modal > div {
+    transform: scale(0.84);
+    transform-origin: center center;
+  }
+
+  .nametag-icon {
+    width: 10px !important;
+    height: 10px !important;
+    border-width: 2px !important;
+  }
+
+  .nametag-box {
+    border-bottom-width: 2px !important;
+    padding-bottom: 2px !important;
+  }
+
+  /* 手机端横屏强制覆盖文本大小与高度，避免被 Tailwind �?sm:/md: 覆盖 */
+  .mobile-landscape-box {
+    height: 140px !important;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 8px,
+      black 18px,
+      black calc(100% - 4px),
+      rgba(0, 0, 0, 0.6) calc(100% - 2px),
+      transparent 100%
+    ) !important;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 8px,
+      black 18px,
+      black calc(100% - 4px),
+      rgba(0, 0, 0, 0.6) calc(100% - 2px),
+      transparent 100%
+    ) !important;
+  }
+
+  /* 注意这里必须加上 .game-dialogue-text 以确保优先级压过竖屏的 20px */
+  .game-dialogue-text.mobile-landscape-text,
+  .mobile-landscape-text {
+    font-size: 18px !important; /* 手机横屏字号：调成18px */
+    line-height: 1.5 !important; /* 行距稍微减小一点点 (从1.6 -> 1.5) */
+    max-height: 6em !important;
+  }
+
+  .mobile-landscape-name {
+    font-size: 0.875rem !important;
+    min-width: 80px !important;
+  }
+}
+
+/* Custom animations */
+.animate-in {
+  animation: animate-in 0.2s ease-out;
+}
+
+@keyframes animate-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 快速淡出动画 - 用于界面切换 */
+.fade-out {
+  animation: fade-out 0.15s ease-in forwards;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* 遮罩层专用动画 - 仅淡入，无 scale，更快速 */
+@keyframes overlay-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 移动端遮罩层优化 */
+@media screen and (max-width: 768px) {
+  /* 遮罩层使用快速淡入，不用 scale */
+  .cozy-overlay.animate-in {
+    animation: overlay-fade-in 0.15s ease-out !important;
+  }
+  
+  .cozy-overlay.fade-in {
+    animation: overlay-fade-in 0.15s ease-out !important;
+  }
+  
+  /* 动画期间暂时降低模糊强度，动画完成后恢复 */
+  .cozy-overlay {
+    animation: overlay-blur-transition 0.15s ease-out forwards;
+  }
+  
+  @keyframes overlay-blur-transition {
+    0% {
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+    }
+    100% {
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+  }
+}
+
+.zoom-in-95 {
+  animation: zoom-in-95 0.2s ease-out;
+}
+
+@keyframes zoom-in-95 {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Pulse animation for UI elements */
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 富文本内联样式（�?parser.ts renderRichText 生成）�?仅形态，不影响颜�?*/
+.game-dialogue-text b {
+  font-weight: 700;
+}
+.game-dialogue-text u {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.game-dialogue-text s {
+  text-decoration: line-through;
+}
+.game-dialogue-text code {
+  font-family: 'Courier Prime', monospace;
+  padding: 0.1em 0.3em;
+  font-size: 0.9em;
+}
+
+/* 对话文字区域滚动条样�?*/
+.game-dialogue-text {
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.game-dialogue-text::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* 侧边抽屉扫描线纹�?*/
+.game-side-drawer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.01) 2px,
+    rgba(255, 255, 255, 0.01) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 呼吸动画（替�?bounce，更柔和�?*/
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.animate-breathe {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* 手机端竖屏全屏：常驻按钮缩小并调整位�?*/
+@media screen and (max-width: 479px) and (min-height: 700px) and (orientation: portrait) {
+  .game-top-controls {
+    top: 0.75rem !important;
+    right: 0.75rem !important;
+    gap: 0.375rem !important;
+    transform: none !important;
+  }
+  .game-top-controls button {
+    width: 2.25rem !important;
+    height: 2.25rem !important;
+    border-radius: 9999px !important;
+  }
+  .game-top-controls button svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
