@@ -56,9 +56,12 @@ importers:
       lodash:
         specifier: ^4.18.1
         version: 4.18.1
+<<<<<<< HEAD
       lucide-react:
         specifier: ^1.21.0
         version: 1.21.0(react@19.2.7)
+=======
+>>>>>>> 55b9a5c73448dafe8d865d5c0df9801d4b33774f
       pinia:
         specifier: ^3.0.4
         version: 3.0.4(typescript@6.0.0-dev.20250807)(vue@3.5.38(typescript@6.0.0-dev.20250807))
@@ -2787,11 +2790,14 @@ packages:
   lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
 
+<<<<<<< HEAD
   lucide-react@1.21.0:
     resolution: {integrity: sha512-reEZMXq8Qdd5jg5XYkQ5TR1fB/GiQ7ih4vcrthYDtgjSDwh0i6/YLiGjsWsIwgN49gpAnd4J2elSNzncMEEUUQ==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
+=======
+>>>>>>> 55b9a5c73448dafe8d865d5c0df9801d4b33774f
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
@@ -6825,10 +6831,13 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+<<<<<<< HEAD
   lucide-react@1.21.0(react@19.2.7):
     dependencies:
       react: 19.2.7
 
+=======
+>>>>>>> 55b9a5c73448dafe8d865d5c0df9801d4b33774f
   magic-string@0.30.21:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
