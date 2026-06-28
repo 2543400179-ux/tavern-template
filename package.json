@@ -93,7 +93,10 @@
     "jsonrepair": "^3.14.1",
     "klona": "^2.0.6",
     "lodash": "^4.18.1",
+<<<<<<< HEAD
     "lucide-react": "^1.21.0",
+=======
+>>>>>>> c5efcd76bf56ff7466cc36a0a02eea9e070a25de
     "pinia": "^3.0.4",
     "pixi.js": "^8.19.0",
     "react": "^19.2.7",
